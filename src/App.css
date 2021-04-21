@@ -1,3 +1,26 @@
+body{
+  background-image: url(stars.jpg);
+  color: azure;
+}
+
+.task {
+  margin: 5%;
+  margin-left: 30%;
+  margin-right: 30%;
+  border: 2px solid ;
+  border-color:azure;
+  
+}
+
+p{
+  text-align: center;
+}
+
+.buttonChange{
+  margin: 0%;
+}
+
+/*
 .App {
   text-align: center;
 }
@@ -36,3 +59,4 @@
     transform: rotate(360deg);
   }
 }
+*/
