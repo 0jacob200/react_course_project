@@ -57,7 +57,7 @@ const Task = ({id, name, description, completed}) => {
     <p>Task name: { name }</p>
     <p>Task description: {description}</p>
     <p>Task completed: {completed}</p>
-    <button className="ButtonChange" onClick={changeStClick}>Change status completed</button>
+    <button className="buttonChange" onClick={changeStClick}>Change status completed</button>
   </div>
   )
 }
@@ -65,7 +65,7 @@ const Task = ({id, name, description, completed}) => {
 const Map = ({state}) =>{
   return(
     <div>
-      {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} completed={tasks.completed}/>)}
+      {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} completed={String(tasks.completed)}/>)}
     </div>
   )
 }
