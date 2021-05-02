@@ -1,27 +1,23 @@
 import logo from './logo.svg';
-//import './App.css';
+import './App.css';
 import { render } from '@testing-library/react';
 import React from 'react'
 
 /*
 ДЗ 4 - Add tasks - deadline 23:59 30.04
-Необходимо реализовать добавление задач в TaskTracker:
-
+1. Необходимо реализовать добавление задач в TaskTracker:
 Должны появится инпуты для ввода name имени и description описания задачи
-
 Кнопка для добавления задачи с введенными именем и описанием в список задач
 
-Разделить приложение на разные компоненты, например 
+2. Разделить приложение на разные компоненты, например 
 (не обязательно именно такое разделение):
-
 App - корневой
 Task - рисует одну таску
 TaskList - рисует список тасок
 TaskAdd - два инпута для ввода имени и описания
-Для каждого компонента отдельная папка components/ComponentName,
- внутри которой js файл для самого компонента и css файл для его стилизации
-
-При нажатии на кнопу внутри таски ее свойство completed должно меняться 
+Для каждого компонента отдельная папка components/ComponentName, 
+внутри которой js файл для самого компонента и css файл для его стилизации
+3. При нажатии на кнопу внутри таски ее свойство completed должно меняться 
 на противоположное. Это изменение должно быть отображено на UI.
 Для реализации этого пункта вам понадобится метод массива findIndex. 
 Будте внимательны, не допускайте мутаций стейта!
@@ -102,6 +98,11 @@ class MyTodoList extends React.Component {
     )
   }
 
+  //changeStatusClick = () => {
+    //console.log(`Task ${id} completed status = ${completed}`)
+
+  //}
+
   render() { 
     return (
       <div>
@@ -112,18 +113,17 @@ class MyTodoList extends React.Component {
   }
 }
 
-const Task = ({id, name, description, completed}) => {
-  const changeStClick = () => {
+const Task = ({id, name, description, completed,}) => {
+  const changeStatusClick = () => {
     console.log(`Task ${id} completed status = ${completed}`)
-    
-   }
+  }
 
   return(
   <div className='task'>
     <p>Task name: { name }</p>
     <p>Task description: {description}</p>
     <p>Task completed: {completed}</p>
-    <button className="buttonChange" onClick={changeStClick}>Change status</button>
+    <button className="buttonChange" onClick={changeStatusClick}>Change status</button>
   </div>
   )
 }
