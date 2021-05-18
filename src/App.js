@@ -1,7 +1,8 @@
 import logo from './logo.svg';
-import './App.css';
+//import './App.css';
 import { render } from '@testing-library/react';
 import React from 'react'
+import MyToDoList from './components/MyToDoList/MyToDoList'
 
 /*
 ДЗ 4 - Add tasks - deadline 23:59 30.04
@@ -17,15 +18,27 @@ TaskList - рисует список тасок
 TaskAdd - два инпута для ввода имени и описания
 Для каждого компонента отдельная папка components/ComponentName, 
 внутри которой js файл для самого компонента и css файл для его стилизации
+
 3. При нажатии на кнопу внутри таски ее свойство completed должно меняться 
 на противоположное. Это изменение должно быть отображено на UI.
 Для реализации этого пункта вам понадобится метод массива findIndex. 
 Будте внимательны, не допускайте мутаций стейта!
 
-Новое дз - новая ветка и новый PR
+
+ДЗ 5 - Styling - deadline 23:59 19.05
+1. Необходимо стилизовать проект по своему вкусу, используя
+css модули (Filename.module.scss)
+scss синтаксис (npm install node-sass@5) - использование знака &
+библиотека classnames - условные стили
+flexbox - вся верстка должна быть осуществлена на нем
+
+2.Добавить возможность переключения тем - светлая/темная. 
+Значение выбранной темы хранить в стейте корневого компонента. Потребителям поставлять 
+с помощью context API. НЕ КЛАСТЬ В КОНТЕКСТ МАССИВ ЗАДАЧ!
 */
 
-class MyTodoList extends React.Component {
+/*
+class MyToDoList extends React.Component {
   state = {
     tasks: [
       {
@@ -68,77 +81,103 @@ class MyTodoList extends React.Component {
     }
   }
 
-  handleAddDataTask = (event) =>{
-    var { value, name} = event.currentTarget
-    //console.log(value)
-    //console.log(name)
-    this.state.newTask[name] = value
-  }
-
-  handleAddTask = (event) => {
-    const newObj = {... this.state.newTask}
-    newObj.id = this.state.tasks.length + 1
-    this.setState((stateChange)=> {
-      this.state.newTask.id = NaN
-      this.state.newTask.name = ""
-      this.state.newTask.description = ""
-      return stateChange.tasks.push(newObj)
+  handleClickChangeStatus = (props) => {
+    this.setState(curState =>{
+      let index = [...curState.tasks].findIndex(x => x.id === props.id)
+      curState.tasks[index] = {...curState.tasks[index], completed: !props.completed}
+      return {
+        tasks: curState.tasks
+      }
     })
   }
 
-  TaskAdd = (state) => {
-    return(
-    <div>
-      <p>Add name for new task:</p>
-      <input id="nameInput" name="name" value={state.newTask} onChange={this.handleAddDataTask}/>
-      <p>Add description:</p>
-      <input id="descripInput" name="description" value={state.newTask} onChange={this.handleAddDataTask}/>
-      <button onClick={this.handleAddTask}>Add task</button>
-    </div>
-    )
+  newTask = (name, description) => {
+    this.setState(curState => {
+      const tasknew = {
+        id: curState.tasks.length +1,
+        name: name,
+        description: description,
+        completed: false
+      }
+      const newState = [...curState.tasks, tasknew]
+      return {tasks: newState} 
+    })
   }
-
-  //changeStatusClick = () => {
-    //console.log(`Task ${id} completed status = ${completed}`)
-
-  //}
 
   render() { 
     return (
       <div>
-        <this.TaskAdd state={this.state}   />
-        <Map state={this.state}/>
+        <NewTask newTask={this.newTask} />
+        <Map state={this.state} handleClickChangeStatus={this.handleClickChangeStatus}/>
       </div>
     )
   }
 }
+*/
 
-const Task = ({id, name, description, completed,}) => {
-  const changeStatusClick = () => {
-    console.log(`Task ${id} completed status = ${completed}`)
+/*
+class NewTask extends React.Component {
+  state ={
+    name: '',
+    description: ''
   }
 
+  handleChangeTask = (event) => {
+    const {value, name} = event.currentTarget
+    this.setState({[name]: value})
+  }
+
+  handleClick = (props) => {
+    this.props.newTask(this.state.name, this.state.description)
+  }
+
+  render() {
+    return (
+      <div>
+        <p>Add name for new task:</p>
+        <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask}/>
+        <p>Add description:</p>
+        <input id="descripInput" name="description" value={this.state.newTask} onChange={this.handleChangeTask}/>
+        <button type="reset" onClick={this.handleClick}>Add task</button>
+    </div>
+    )
+  }
+}
+*/
+
+/*
+const Task = ({id, name, description, completed, handleClickChangeStatus}) => {
+  
+  const changeStatusClick = () => {
+    console.log(`Task ${id} completed status = ${completed}`)
+    handleClickChangeStatus(id, completed)
+  }
+  
   return(
   <div className='task'>
     <p>Task name: { name }</p>
     <p>Task description: {description}</p>
     <p>Task completed: {completed}</p>
-    <button className="buttonChange" onClick={changeStatusClick}>Change status</button>
+    <button className="buttonChange" onClick={()=> handleClickChangeStatus(id, completed)}>Change status</button>
   </div>
   )
 }
+*/
 
-const Map = ({state}) =>{
+/*
+const Map = ({state, handleClickChangeStatus}) =>{
   return(
     <div>
-      {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} completed={String(tasks.completed)}/>)}
+      {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} 
+      completed={String(tasks.completed)} handleClickChangeStatus={handleClickChangeStatus}/>)}
     </div>
   )
 }
+*/
 
 const App = () => {
   return(
-  <MyTodoList/>
+  <MyToDoList/>
   )
 }
 
