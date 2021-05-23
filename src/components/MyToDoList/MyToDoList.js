@@ -36,22 +36,15 @@ class MyToDoList extends React.Component {
           description: 'Doing somthing 6',
           completed: true
         }
-      ],
-      newTask: {
-        id: NaN,
-        name: '',
-        description: '',
-        completed: false
-      }
+      ]
     }
   
     handleClickChangeStatus = (id, completed) => {
       //console.log({id, completed})
       this.setState(curState =>{
         let index = curState.tasks.findIndex(x => x.id === id)
-        completed = !completed
         //console.log({index, completed})
-        curState.tasks[index] = {...curState.tasks[index], completed: completed}
+        curState.tasks[index] = {...curState.tasks[index], completed: !completed}
         return {
           tasks: curState.tasks
         }

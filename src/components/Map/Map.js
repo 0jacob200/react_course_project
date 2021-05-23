@@ -5,7 +5,7 @@ const Map = ({state, handleClickChangeStatus}) =>{
     return(
       <div>
         {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} 
-        completed={String(tasks.completed)} handleClickChangeStatus={handleClickChangeStatus}/>)}
+        completed={tasks.completed} handleClickChangeStatus={()=> handleClickChangeStatus(tasks.id, tasks.completed)}/>)}
       </div>
     )
 }
