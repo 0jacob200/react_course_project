@@ -1,184 +1,158 @@
 import logo from './logo.svg';
-//import './App.css';
 import { render } from '@testing-library/react';
 import React from 'react'
-import MyToDoList from './components/MyToDoList/MyToDoList'
+import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react-router-dom';
 
-/*
-ДЗ 4 - Add tasks - deadline 23:59 30.04
-1. Необходимо реализовать добавление задач в TaskTracker:
-Должны появится инпуты для ввода name имени и description описания задачи
-Кнопка для добавления задачи с введенными именем и описанием в список задач
+//import './App.css';
 
-2. Разделить приложение на разные компоненты, например 
-(не обязательно именно такое разделение):
-App - корневой
-Task - рисует одну таску
-TaskList - рисует список тасок
-TaskAdd - два инпута для ввода имени и описания
-Для каждого компонента отдельная папка components/ComponentName, 
-внутри которой js файл для самого компонента и css файл для его стилизации
-
-3. При нажатии на кнопу внутри таски ее свойство completed должно меняться 
-на противоположное. Это изменение должно быть отображено на UI.
-Для реализации этого пункта вам понадобится метод массива findIndex. 
-Будте внимательны, не допускайте мутаций стейта!
+//import MyToDoList from './components/MyToDoList/MyToDoList'
+import ProjectList from './components/ProjectList/ProjectList'
+import NewProject from './components/NewProject/NewProject'
 
 
-ДЗ 5 - Styling - deadline 23:59 19.05
+/* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
 1. Необходимо стилизовать проект по своему вкусу, используя
-css модули (Filename.module.scss)
-scss синтаксис (npm install node-sass@5) - использование знака &
-библиотека classnames - условные стили
-flexbox - вся верстка должна быть осуществлена на нем
+- css модули (Filename.module.scss)
+- scss синтаксис (npm install node-sass@5) - использование знака &
+- библиотека classnames - условные стили
+- flexbox - вся верстка должна быть осуществлена на нем
 
 2.Добавить возможность переключения тем - светлая/темная. 
 Значение выбранной темы хранить в стейте корневого компонента. Потребителям поставлять 
 с помощью context API. НЕ КЛАСТЬ В КОНТЕКСТ МАССИВ ЗАДАЧ!
 */
 
-/*
-class MyToDoList extends React.Component {
-  state = {
+/* ДЗ 6 - React router - deadline 23:59 26.05 (на 02.06 макс 8,9)
+Необходимо подключить react-router-dom к проекту
+
+Появляется новая сущность - projects. Project ~ папка для создания задач внутри. Например, "Домашние дела", "Универ", "Список покупок" и тд.
+
+В вашем react-проекте должно быть как минимум 2 страницы:
+
+страница со списком всех проектов
+создание нового проекта либо на этой же странице, либо на отдельной
+страница проекта; в url должен быть отражен id project'a
+на странице проекта отоброжаются все таски, принадлежащие данному проекту.
+создание новой таски либо на странице проекта, либо отдельная страница
+При попытке перехода по несуществующему url необходимо редиректить на страницу со списком проектов или на страницу 404
+
+Желательно предусмотреть навигацию между страницами, чтобы со страницы конкретного проекта можно было вернуться к списку проектов
+
+Нормализовать стейт. В этом пунтке нужно написать ф-ию для преобразования массива проектов из такого формата
+
+projects = [
+  {
+    id: 1234,
+    name: 'Project name',
     tasks: [
       {
-        id: 1,
-        name: 'Name task 1',
-        description: 'Doing somthing 1',
+        id: 4321,
+        name: '',
+        description: '',
         completed: false
-      },{
-        id: 2,
-        name: 'Name task 2',
-        description: 'Doing somthing 2',
-        completed: true
-      },{
-        id: 3,
-        name: 'Name task 3',
-        description: 'Doing somthing 3',
-        completed: false
-      },{
-        id: 4,
-        name: 'Name task 4',
-        description: 'Doing somthing 4',
-        completed: true
-      },{
-        id: 5,
-        name: 'Name task 5',
-        description: 'Doing somthing 5',
-        completed: false
-      },{
-        id: 6,
-        name: 'Name task 6',
-        description: 'Doing somthing 6',
-        completed: true
-      }
-    ],
-    newTask: {
-      id: NaN,
-      name: '',
-      description: '',
-      completed: false
-    }
-  }
+      },
+      // ...
+    ]
+  },
+  // ...
+]
+в такой
 
-  handleClickChangeStatus = (props) => {
-    this.setState(curState =>{
-      let index = [...curState.tasks].findIndex(x => x.id === props.id)
-      curState.tasks[index] = {...curState.tasks[index], completed: !props.completed}
-      return {
-        tasks: curState.tasks
-      }
-    })
-  }
+state = {
+  projectsById: {
+    1: {
+      id: 1,
+      name: 'Project name',
+      tasksIds: [1, 2, 3]
+    },
+    2: {
+      id: 1,
+      name: 'Project name 2',
+      tasksIds: [4, 5]
+    },
+    // ...
+  },
 
-  newTask = (name, description) => {
-    this.setState(curState => {
-      const tasknew = {
-        id: curState.tasks.length +1,
-        name: name,
-        description: description,
-        completed: false
-      }
-      const newState = [...curState.tasks, tasknew]
-      return {tasks: newState} 
-    })
-  }
-
-  render() { 
-    return (
-      <div>
-        <NewTask newTask={this.newTask} />
-        <Map state={this.state} handleClickChangeStatus={this.handleClickChangeStatus}/>
-      </div>
-    )
+  tasksById: {
+    1: {
+      id: 1,
+      name: 'Task #1',
+      description: 'descr',
+      completed: false,
+    },
+    2: {
+      id: 2,
+      name: 'Task #2',
+      description: 'descr',
+      completed: true,
+    },
+    // ...
   }
 }
+т.е. должна появиться ф-ия
+
+const normalizeState = (projectArray) => { // projectArray - массив проектов из первого код сниппета
+  // some magic
+  return normalizedState // normalizedState - нормализованный стейт из второго код сниппета
+}
+Это необходимо для более легкой интеграцией с беком в будущем, тк он будет отвечать в похожем на первый код сниппет формате.
+
+Стилизовать можно как угодно, это оцениваться не будет.
 */
 
-/*
-class NewTask extends React.Component {
-  state ={
-    name: '',
-    description: ''
-  }
+/* ДЗ 7 - Redux - deadline 23:59 06.06
 
-  handleChangeTask = (event) => {
-    const {value, name} = event.currentTarget
-    this.setState({[name]: value})
-  }
+Необходимо подключить redux к проекту
 
-  handleClick = (props) => {
-    this.props.newTask(this.state.name, this.state.description)
-  }
+Хранение тасок и проектов в нормализованном виде в redux
+Любые действия с тасками и проектами должны осуществляться через actions
+Шаги для подключения redux:
 
-  render() {
-    return (
-      <div>
-        <p>Add name for new task:</p>
-        <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask}/>
-        <p>Add description:</p>
-        <input id="descripInput" name="description" value={this.state.newTask} onChange={this.handleChangeTask}/>
-        <button type="reset" onClick={this.handleClick}>Add task</button>
-    </div>
-    )
-  }
-}
-*/
-
-/*
-const Task = ({id, name, description, completed, handleClickChangeStatus}) => {
-  
-  const changeStatusClick = () => {
-    console.log(`Task ${id} completed status = ${completed}`)
-    handleClickChangeStatus(id, completed)
-  }
-  
-  return(
-  <div className='task'>
-    <p>Task name: { name }</p>
-    <p>Task description: {description}</p>
-    <p>Task completed: {completed}</p>
-    <button className="buttonChange" onClick={()=> handleClickChangeStatus(id, completed)}>Change status</button>
-  </div>
-  )
-}
-*/
-
-/*
-const Map = ({state, handleClickChangeStatus}) =>{
-  return(
-    <div>
-      {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} 
-      completed={String(tasks.completed)} handleClickChangeStatus={handleClickChangeStatus}/>)}
-    </div>
-  )
-}
+Установить redux, react-redux
+Создать reducer
+Создать store
+Обернуть весь проект в Provider
+Создать actions
+Подключть компоненты к стору через connect
 */
 
 const App = () => {
   return(
-  <MyToDoList/>
+    <BrowserRouter>
+      <Route path="/" component={Header}/>
+      
+      <Switch>
+        <Route exact path="/" component={StartPage}/>
+        <Route exact path="/projectlist" component={ProjectList}/>
+        <Route exact path="/newproject" component={NewProject}/>
+      </Switch>
+    </BrowserRouter>
   )
 }
+
+const Header = () => {
+  return (
+    <div>
+      <h2>Menu of Task Manager</h2>
+      <ul>
+        <li>
+          <Link to="/newproject">Add New Project</Link>
+        </li>
+        <li>
+          <Link to="/projectlist">Project List</Link>
+        </li>
+      </ul>
+    </div>
+  )
+}
+
+const StartPage = () =>{
+  return(
+    <div>
+      <h1>Welcome to your own Task Manager, user!</h1>
+    </div>
+  )
+}
+
 
 export default App;
