@@ -1,4 +1,5 @@
 import React from 'react'
+import NewProject from '../NewProject/NewProject'
 import Project from '../Project/Project'
 
 /*
@@ -46,12 +47,12 @@ const dataproject = {
     projectsById: {
       1: {
         id: 1,
-        name: 'Project 1',
+        name: 'Учеба',
         tasksIds: [1]
       },
       2: {
         id: 2,
-        name: 'Project 2',
+        name: 'Дом',
         tasksIds: [2]
       },
       // ...
@@ -81,21 +82,22 @@ const NormalisationState = (stateToNorm) => {
 class ProjectList extends React.Component {
     state = NormalisationState(dataproject)
 
-    newProject = (name, tasksIds) => {
-        //this.setState()
-        const prjnew = {
-            id: Object.keys(this.state.projectsById) +1,
-            name: name,
-            tasksIds: tasksIds
-        }
-        this.state.projectsById = [...this.state.projectsById, prjnew]
-        return
+    newProj = (name) =>{
+      this.setState(curSt =>{
+        const newID = Object.keys(this.state.projectsById).length + 1
+        const newSt = {...curSt.projectsById, [newID]: { 
+          id: newID,
+          name: name,
+          tasksIds: []
+          }}
+        return {projectsById: newSt}
+      })
     }
 
     render() {
-        //console.log(Object.keys(this.state.projectsById))
         return (
             <div>
+                <NewProject newProj={this.newProj}/>
                 {Object.values(this.state.projectsById).map(prj => 
                     <Project id={prj.id} tasksIds={prj.tasksById} name={prj.name}/>
                 )}

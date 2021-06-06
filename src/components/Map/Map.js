@@ -4,8 +4,8 @@ import Task from '../Task/Task'
 const Map = ({state, handleClickChangeStatus}) =>{
     return(
       <div>
-        {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} 
-        completed={tasks.completed} handleClickChangeStatus={()=> handleClickChangeStatus(tasks.id, tasks.completed)}/>)}
+        {Object.values(state.tasksById).map(task => <Task id={task.id} name={task.name} description={task.description} 
+        completed={task.completed} handleClickChangeStatus={()=> handleClickChangeStatus(task.id, task.completed)}/>)}
       </div>
     )
 }

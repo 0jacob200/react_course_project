@@ -13,9 +13,14 @@ class NewProject extends React.Component {
     }
   
     handleClick = (props) => {
-      this.props.newTask(this.state.name, this.state.description)
+      this.props.newProj(this.state.name)
       this.setState(curState => {
-          curState.name = ''
+          const cleardata = {
+            id: NaN,
+            name: '',
+            tasksIds: []
+          }
+          return cleardata
       })
     }
   
@@ -24,8 +29,6 @@ class NewProject extends React.Component {
         <div>
           <p>Add name for new project:</p>
           <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
-          <p>Add description:</p>
-          <input id="descripInput" name="description" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
           <button type="reset" onClick={this.handleClick}>Add task</button>
       </div>
       )

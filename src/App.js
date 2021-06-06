@@ -5,9 +5,10 @@ import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react
 
 //import './App.css';
 
-//import MyToDoList from './components/MyToDoList/MyToDoList'
+import TaskList from './components/TaskList/TaskList'
 import ProjectList from './components/ProjectList/ProjectList'
-import NewProject from './components/NewProject/NewProject'
+//import NewProject from './components/NewProject/NewProject'
+import StartPage from './components/StartPage/StartPage'
 
 
 /* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
@@ -25,7 +26,8 @@ import NewProject from './components/NewProject/NewProject'
 /* ДЗ 6 - React router - deadline 23:59 26.05 (на 02.06 макс 8,9)
 Необходимо подключить react-router-dom к проекту
 
-Появляется новая сущность - projects. Project ~ папка для создания задач внутри. Например, "Домашние дела", "Универ", "Список покупок" и тд.
+Появляется новая сущность - projects. Project ~ папка для создания задач внутри. 
+Например, "Домашние дела", "Универ", "Список покупок" и тд.
 
 В вашем react-проекте должно быть как минимум 2 страницы:
 
@@ -34,9 +36,11 @@ import NewProject from './components/NewProject/NewProject'
 страница проекта; в url должен быть отражен id project'a
 на странице проекта отоброжаются все таски, принадлежащие данному проекту.
 создание новой таски либо на странице проекта, либо отдельная страница
-При попытке перехода по несуществующему url необходимо редиректить на страницу со списком проектов или на страницу 404
+При попытке перехода по несуществующему url необходимо редиректить на страницу со списком проектов
+ или на страницу 404
 
-Желательно предусмотреть навигацию между страницами, чтобы со страницы конкретного проекта можно было вернуться к списку проектов
+Желательно предусмотреть навигацию между страницами, чтобы со страницы конкретного проекта 
+можно было вернуться к списку проектов
 
 Нормализовать стейт. В этом пунтке нужно написать ф-ию для преобразования массива проектов из такого формата
 
@@ -95,7 +99,8 @@ const normalizeState = (projectArray) => { // projectArray - массив про
   // some magic
   return normalizedState // normalizedState - нормализованный стейт из второго код сниппета
 }
-Это необходимо для более легкой интеграцией с беком в будущем, тк он будет отвечать в похожем на первый код сниппет формате.
+Это необходимо для более легкой интеграцией с беком в будущем, тк он будет отвечать в похожем 
+на первый код сниппет формате.
 
 Стилизовать можно как угодно, это оцениваться не будет.
 */
@@ -123,8 +128,10 @@ const App = () => {
       
       <Switch>
         <Route exact path="/" component={StartPage}/>
-        <Route exact path="/projectlist" component={ProjectList}/>
-        <Route exact path="/newproject" component={NewProject}/>
+        <Route exact path="/projects" component={ProjectList}/>
+        {/* <Route exact path="/newproject" component={NewProject}/> */}
+        <Route exact path="/projects/:projectId" component={TaskList}/>
+        <Redirect to="/" />
       </Switch>
     </BrowserRouter>
   )
@@ -135,24 +142,15 @@ const Header = () => {
     <div>
       <h2>Menu of Task Manager</h2>
       <ul>
-        <li>
+        {/* <li>
           <Link to="/newproject">Add New Project</Link>
-        </li>
+        </li> */}
         <li>
-          <Link to="/projectlist">Project List</Link>
+          <Link to="/projects">Project List</Link>
         </li>
       </ul>
     </div>
   )
 }
-
-const StartPage = () =>{
-  return(
-    <div>
-      <h1>Welcome to your own Task Manager, user!</h1>
-    </div>
-  )
-}
-
 
 export default App;

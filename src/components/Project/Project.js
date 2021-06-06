@@ -1,10 +1,14 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 const Project = ({id, name, tasksIds}) => {
+    const prjPath = `/projects/${id}`
     return (
         <div>
             <p>{id}. Project name: {name}</p>
-            <button>To Project's Tasks</button>
+            <Link to={prjPath}>
+                <button>To Tasks</button>
+            </Link>
         </div>
     )
 }
