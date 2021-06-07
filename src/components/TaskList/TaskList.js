@@ -1,39 +1,11 @@
 import React from 'react'
+
 import Map from '../Map/Map'
 import NewTask from '../NewTask/NewTask'
+import dataproject from '../Data/Data'
 
 class TaskList extends React.Component {
-    state = {
-      projectsById: {
-        1: {
-          id: 1,
-          name: 'Учеба',
-          tasksIds: [1]
-        },
-        2: {
-          id: 2,
-          name: 'Дом',
-          tasksIds: [2]
-        },
-        // ...
-      },
-    
-      tasksById: {
-        1: {
-          id: 1,
-          name: 'Task #1',
-          description: 'descr',
-          completed: false,
-        },
-        2: {
-          id: 2,
-          name: 'Task #2',
-          description: 'descr',
-          completed: true,
-        },
-        // ...
-      }
-    }
+    state = this.props.state
   
     handleClickChangeStatus = (id, completed) => {
       this.setState(curState =>{
@@ -45,19 +17,8 @@ class TaskList extends React.Component {
         }
       })
     }
-  
-    // newTask = (name, description) => {
-    //   this.setState(curState => {
-    //     const tasknew = {
-    //       id: curState.tasks.length +1,
-    //       name: name,
-    //       description: description,
-    //       completed: false
-    //     }
-    //     const newState = [...curState.tasks, tasknew]
-    //     return {tasks: newState} 
-    //   })
-    // }
+
+    
 
     newTask = (name, description) =>{
       this.setState(curSt =>{

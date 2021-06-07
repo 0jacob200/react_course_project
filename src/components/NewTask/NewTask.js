@@ -1,8 +1,10 @@
 import React from 'react'
 class NewTask extends React.Component {
     state ={
+      id: NaN,
       name: '',
-      description: ''
+      description: '',
+      completed: false
     }
   
     handleChangeTask = (event) => {

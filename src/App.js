@@ -5,10 +5,10 @@ import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react
 
 //import './App.css';
 
-import TaskList from './components/TaskList/TaskList'
+//import TaskList from './components/TaskList/TaskList'
 import ProjectList from './components/ProjectList/ProjectList'
 //import NewProject from './components/NewProject/NewProject'
-import StartPage from './components/StartPage/StartPage'
+//import StartPage from './components/StartPage/StartPage'
 
 
 /* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
@@ -124,15 +124,16 @@ const normalizeState = (projectArray) => { // projectArray - массив про
 const App = () => {
   return(
     <BrowserRouter>
-      <Route path="/" component={Header}/>
-      
+      {/* <Route path="/" component={Header}/>
       <Switch>
         <Route exact path="/" component={StartPage}/>
         <Route exact path="/projects" component={ProjectList}/>
-        {/* <Route exact path="/newproject" component={NewProject}/> */}
+        //<Route exact path="/newproject" component={NewProject}/>
         <Route exact path="/projects/:projectId" component={TaskList}/>
         <Redirect to="/" />
-      </Switch>
+      </Switch> */}
+      <Route path="/" component={Header}/>
+      <ProjectList/>
     </BrowserRouter>
   )
 }
