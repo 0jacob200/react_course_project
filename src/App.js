@@ -41,6 +41,7 @@ import ProjectList from './components/ProjectList/ProjectList'
  */
 
 /* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
+
 1. Необходимо стилизовать проект по своему вкусу, используя
 - css модули (Filename.module.scss)
 - scss синтаксис (npm install node-sass@5) - использование знака &
