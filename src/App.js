@@ -1,29 +1,30 @@
 import logo from './logo.svg';
 import { render } from '@testing-library/react';
 import React from 'react'
-import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react-router-dom';
+import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react-router-dom'
+import  { createStore} from "redux"
+import { Provider } from 'react-redux'
 
 //import './App.css';
-
 //import TaskList from './components/TaskList/TaskList'
 import ProjectList from './components/ProjectList/ProjectList'
 //import NewProject from './components/NewProject/NewProject'
 //import StartPage from './components/StartPage/StartPage'
+import {rootReducer} from "./reducers/rootreducer";
 
 /* ДЗ 7 - Redux - deadline 23:59 06.06
 
 Необходимо подключить redux к проекту
+1. Хранение тасок и проектов в нормализованном виде в redux
+2. Любые действия с тасками и проектами должны осуществляться через actions
 
-Хранение тасок и проектов в нормализованном виде в redux
-Любые действия с тасками и проектами должны осуществляться через actions
 Шаги для подключения redux:
-
-Установить redux, react-redux
-Создать reducer
-Создать store
-Обернуть весь проект в Provider
-Создать actions
-Подключть компоненты к стору через connect
+1. Установить redux, react-redux +
+2. Создать reducer +
+3. Создать store +
+4. Обернуть весь проект в Provider +
+5. Создать actions
+6. Подключть компоненты к стору через connect
 */
 
 /*
@@ -40,7 +41,7 @@ import ProjectList from './components/ProjectList/ProjectList'
 Документация к API*ссылка*
  */
 
-/* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
+ /* ДЗ 5 - Styling - deadline 23:59 19.05 (можно сдать до 22.06)
 
 1. Необходимо стилизовать проект по своему вкусу, используя
 - css модули (Filename.module.scss)
@@ -53,13 +54,17 @@ import ProjectList from './components/ProjectList/ProjectList'
 с помощью context API. НЕ КЛАСТЬ В КОНТЕКСТ МАССИВ ЗАДАЧ!
 */
 
+const store = createStore(rootReducer)
+
 
 const App = () => {
   return(
-    <BrowserRouter>
-      <Route path="/" component={Header}/>
-      <ProjectList/>
-    </BrowserRouter>
+      <Provider store={store}>
+          <BrowserRouter>
+              <Route path="/" component={Header}/>
+              <ProjectList/>
+          </BrowserRouter>
+      </Provider>
   )
 }
 

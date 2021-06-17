@@ -1,20 +1,23 @@
 import React from 'react'
+import { connect } from 'react-redux'
 
 import Map from '../Map/Map'
 import NewTask from '../NewTask/NewTask'
 
+const mapStateToProps = (state) => ({
+    tasksById: state.tasksById
+})
 
-class TaskList extends React.Component {
-    state = this.props.state
+
+class TaskListComponent extends React.Component {
+    //state = this.props.state
 
     handleClickChangeStatus = (id, completed) => {
-      this.setState(curState =>{
-        const oldTask = this.state.tasksById[id]
+        const oldTask = this.props.tasksById[id]
         const newTask = {...oldTask, completed: !completed}
         return {
-          tasksById: {...curState.tasksById, [id] : newTask}
+            tasksById: {...this.props.tasksById, [id]: newTask}
         }
-      })
     }
 
     getProjectTask = (projId) => {
@@ -62,7 +65,7 @@ class TaskList extends React.Component {
     render() {
       return (
         <div>
-          <h3>Tasks of Project {this.state.projectsById[this.getIdProject()].name} </h3>
+          <h3>Tasks of Project {this.getIdProject()} </h3>
           <NewTask newTask={this.newTask} />
           <Map tasks={this.getProjectTask(this.getIdProject())} handleClickChangeStatus={this.handleClickChangeStatus}/>
         </div>
@@ -70,4 +73,5 @@ class TaskList extends React.Component {
     }
   }
 
+  const TaskList = connect(mapStateToProps)(TaskListComponent)
   export default TaskList
