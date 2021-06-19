@@ -1,11 +1,11 @@
 import React from 'react'
 import Task from '../Task/Task'
 
-const Map = ({state, handleClickChangeStatus}) =>{
+const Map = ({tasks, handleClickChangeStatus}) =>{
     return(
       <div>
-        {state.tasks.map(tasks => <Task id={tasks.id} name={tasks.name} description={tasks.description} 
-        completed={tasks.completed} handleClickChangeStatus={()=> handleClickChangeStatus(tasks.id, tasks.completed)}/>)}
+        {tasks.map(task => <Task id={task.id} name={task.name} description={task.description}
+        completed={task.completed} handleClickChangeStatus={()=> handleClickChangeStatus(task.id, task.completed)}/>)}
       </div>
     )
 }

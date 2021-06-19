@@ -1,8 +1,10 @@
 import React from 'react'
 class NewTask extends React.Component {
     state ={
+      id: NaN,
       name: '',
-      description: ''
+      description: '',
+      completed: false
     }
   
     handleChangeTask = (event) => {
@@ -22,9 +24,9 @@ class NewTask extends React.Component {
       return (
         <div>
           <p>Add name for new task:</p>
-          <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
+          <input id="nameInput" name="name" onChange={this.handleChangeTask} placeholder={''}/>
           <p>Add description:</p>
-          <input id="descripInput" name="description" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
+          <input id="descripInput" name="description" onChange={this.handleChangeTask} placeholder={''}/>
           <button type="reset" onClick={this.handleClick}>Add task</button>
       </div>
       )
