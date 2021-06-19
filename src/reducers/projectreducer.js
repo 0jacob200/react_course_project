@@ -2,11 +2,10 @@ import {PROJECT_TASK_ADD} from "../actions/project";
 import {PROJECT_ADD} from "../actions/project";
 import { dataproject, NormalisationState} from "../components/Data/Data";
 
-const { projectsById, tasksById } = NormalisationState(dataproject)
+const { projectsById } = NormalisationState(dataproject)
 
 const initialState = {
-    projects: projectsById,
-    tasks: tasksById
+    projectsById: projectsById
 }
 
 const projectreducer = (state = initialState, action) => {

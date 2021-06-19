@@ -3,7 +3,7 @@ import React from "react";
 const dataproject = [
     {
         id: 0,
-        name: 'Project 1',
+        name: '*Project1Name*',
         tasks: [
             {
                 id: 0,
@@ -21,7 +21,7 @@ const dataproject = [
     },
     {
         id: 1,
-        name: 'Project 2',
+        name: '*Project2name*',
         tasks: [
             {
                 id: 2,
@@ -73,32 +73,38 @@ const dataproject = [
 
 
 const NormalisationState = (projects) => {
+    const normalizedProjects = {}
+    const normalizedTasks = {}
 
-    const normalizeBy = (key) => {
-        return (data, item) => {
-            data[item[key]] = item
-            return data
+    const normalizedState = {
+        projectsById : normalizedProjects,
+        tasksById : normalizedTasks
+    }
+
+    const getTaskId = (tasks) => {
+        const tasksIds = []
+        tasks.map(task => tasksIds.push(task.id))
+        return tasksIds;
+    }
+
+    projects.map(proj => {
+        const projTasks = proj.tasks;
+        projTasks.map(it => {
+            return normalizedTasks[it.id] = {
+                id: it.id,
+                name: it.name,
+                description: it.description,
+                completed: it.completed
+            }
+        })
+        return normalizedProjects[proj.id] = {
+            id: proj.id,
+            name: proj.name,
+            tasksIds: getTaskId(proj.tasks)
         }
-    }
-
-    const normTasks =
-        projects.map(project =>
-            project.tasks).flat().reduce(normalizeBy('id'),
-            {})
-
-    const normProject = projects.map(project =>
-        ({
-            ...project,
-            tasksIds: project.tasks.map(task => task.id)
-        })).reduce(normalizeBy('id'),
-        {})
-
-    const normState = {
-        projectsById: normProject,
-        tasksById: normTasks,
-    }
-
-    return normState
+    })
+    //console.log(normalizedState)
+    return normalizedState
 }
 
 export {dataproject, NormalisationState}

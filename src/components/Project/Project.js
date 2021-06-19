@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 
 const Project = ({id, name, tasksIds}) => {
     const prjPath = `/projects/${id}`
-
+    //console.log(id, name, tasksIds)
     return (
         <div>
             <p>{id}. Project name: {name}</p>

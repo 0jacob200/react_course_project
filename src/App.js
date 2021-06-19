@@ -69,6 +69,7 @@ const App = () => {
 }
 
 const Header = () => {
+    //console.log(store)
   return (
     <div>
       <h2>Menu of Task Manager</h2>

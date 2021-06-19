@@ -1,14 +1,31 @@
 import React from 'react'
+import {connect} from "react-redux";
 
-const Task = ({id, name, description, completed, handleClickChangeStatus}) => {
+const mapStateToProps = (state) => ({
+    tasks: state.tasksById.tasksById,
+})
+
+const TaskComponent = ({id, tasks})=> {
+
+    // handleClickChangeStatus = () => {
+    //     const oldTask = this.props.tasksById[id]
+    //     const newTask = {...oldTask, completed: !completed}
+    //     return {
+    //         tasksById: {...this.props.tasksById, [id]: newTask}
+    //     }
+    // }
+
+
+    //console.log(tasks)
     return(
-    <div className='task'>
-      <p>Task name: { name }</p>
-      <p>Task description: {description}</p>
-      <p>Task completed: {String(completed)}</p>
-      <button className="buttonChange" onClick={()=> handleClickChangeStatus(id, completed)}>Change status</button>
-    </div>
+        <div className='task'>
+          <p>Task name: { tasks[id].name }</p>
+          <p>Task description: {tasks[id].description}</p>
+          <p>Task completed: {String(tasks[id].completed)}</p>
+          <button className="buttonChange" >Change status</button>
+        </div>
     )
 }
 
+const Task = connect(mapStateToProps)(TaskComponent)
 export default Task
