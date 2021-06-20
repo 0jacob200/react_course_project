@@ -6,13 +6,13 @@ const dataproject = [
         name: '*Project1Name*',
         tasks: [
             {
-                id: 0,
+                id: 1,
                 name: '1.1',
                 description: 'www',
                 completed: false
             },
             {
-                id: 1,
+                id: 2,
                 name: '1.2',
                 description: 'eee',
                 completed: true
@@ -24,13 +24,13 @@ const dataproject = [
         name: '*Project2name*',
         tasks: [
             {
-                id: 2,
+                id: 3,
                 name: '2.1',
                 description: 'ggg',
                 completed: false
             },
             {
-                id: 3,
+                id: 4,
                 name: '2.2',
                 description: 'lhnv',
                 completed: false
@@ -103,7 +103,6 @@ const NormalisationState = (projects) => {
             tasksIds: getTaskId(proj.tasks)
         }
     })
-    //console.log(normalizedState)
     return normalizedState
 }
 

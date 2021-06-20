@@ -1,10 +1,17 @@
 import React from 'react'
-class NewTask extends React.Component {
+import {connect} from "react-redux"
+import {handleTaskAdd} from "../../actions/task"
+import {handleProjectTaskAdd} from "../../actions/project";
+
+const mapDispatchToProps = (dispatch) => ({
+    dispatchClick: (name, description, projectId) => dispatch(handleTaskAdd(name, description, projectId)),
+    dispatchAddTaskToProj: (projId, taskId) => dispatch(handleProjectTaskAdd(projId, taskId))
+})
+
+class NewTaskComponent extends React.Component {
     state ={
-      id: NaN,
       name: '',
-      description: '',
-      completed: false
+      description: ''
     }
   
     handleChangeTask = (event) => {
@@ -12,12 +19,9 @@ class NewTask extends React.Component {
       this.setState({[name]: value})
     }
   
-    handleClick = (props) => {
-      this.props.newTask(this.state.name, this.state.description)
-      this.setState(curState => {
-            curState.name = ''
-            curState.description = ''
-      })
+    handleClick = () => {
+        this.props.dispatchClick(this.state.name, this.state.description, this.props.projid)
+        this.props.dispatchAddTaskToProj(this.props.projid, this.props.newid)
     }
   
     render() {
@@ -33,4 +37,5 @@ class NewTask extends React.Component {
     }
   }
 
-  export default NewTask
+const NewTask = connect(null,mapDispatchToProps)(NewTaskComponent)
+export default NewTask

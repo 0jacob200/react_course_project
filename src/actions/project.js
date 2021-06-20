@@ -6,7 +6,7 @@ export const handleProjectAdd = (name) => ({
     name: name
 })
 
-export const handleProjectTaskAdd = (taskId, projectId) => ({
+export const handleProjectTaskAdd = (projectId, taskId) => ({
     type: PROJECT_TASK_ADD,
     projectId: projectId,
     taskId: taskId

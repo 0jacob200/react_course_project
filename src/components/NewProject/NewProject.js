@@ -1,11 +1,14 @@
 import React from 'react'
 import { connect } from 'react-redux'
+import {handleProjectAdd} from "../../actions/project";
 
-class NewProject extends React.Component {
+const mapDispatchToProps = (dispatch) => ({
+    dispatchProjAdd: (name) => dispatch(handleProjectAdd(name))
+})
+
+class NewProjectComponent extends React.Component {
     state ={
-        id: NaN,
-        name: '',
-        tasksIds: []
+        name: ''
     }
 
     handleChangeTask = (event) => {
@@ -13,27 +16,21 @@ class NewProject extends React.Component {
       this.setState({[name]: value})
     }
   
-    handleClick = (props) => {
-      this.props.newProj(this.state.name)
-      this.setState(curState => {
-          const cleardata = {
-            id: NaN,
-            name: '',
-            tasksIds: []
-          }
-          return cleardata
-      })
+    handleClick = () => {
+        this.props.dispatchProjAdd(this.state.name)
     }
   
     render() {
-      return (
-        <div>
-          <p>Add name for new project:</p>
-          <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
-          <button type="reset" onClick={this.handleClick}>Add task</button>
-      </div>
-      )
+        return (
+            <div>
+               <p>Add name for new project:</p>
+               <input id="nameInput" name="name" value={this.state.newTask} onChange={this.handleChangeTask} placeholder={''}/>
+               <button type="reset" onClick={this.handleClick}>Add project</button>
+            </div>
+        )
     }
-  }
+}
 
-  export default NewProject
+
+const NewProject = connect(null, mapDispatchToProps)(NewProjectComponent)
+export default NewProject

@@ -5,27 +5,9 @@ import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react
 import  { createStore} from "redux"
 import { Provider } from 'react-redux'
 
-//import './App.css';
-//import TaskList from './components/TaskList/TaskList'
 import ProjectList from './components/ProjectList/ProjectList'
-//import NewProject from './components/NewProject/NewProject'
-//import StartPage from './components/StartPage/StartPage'
 import {rootReducer} from "./reducers/rootreducer";
 
-/* ДЗ 7 - Redux - deadline 23:59 06.06
-
-Необходимо подключить redux к проекту
-1. Хранение тасок и проектов в нормализованном виде в redux
-2. Любые действия с тасками и проектами должны осуществляться через actions
-
-Шаги для подключения redux:
-1. Установить redux, react-redux +
-2. Создать reducer +
-3. Создать store +
-4. Обернуть весь проект в Provider +
-5. Создать actions
-6. Подключть компоненты к стору через connect
-*/
 
 /*
 ДЗ 8 - Client-server communication - deadline 23:59 16.06
@@ -56,7 +38,6 @@ import {rootReducer} from "./reducers/rootreducer";
 
 const store = createStore(rootReducer)
 
-
 const App = () => {
   return(
       <Provider store={store}>
@@ -69,14 +50,10 @@ const App = () => {
 }
 
 const Header = () => {
-    //console.log(store)
   return (
     <div>
       <h2>Menu of Task Manager</h2>
       <ul>
-        {/* <li>
-          <Link to="/newproject">Add New Project</Link>
-        </li> */}
         <li>
           <Link to="/projects">Project List</Link>
         </li>

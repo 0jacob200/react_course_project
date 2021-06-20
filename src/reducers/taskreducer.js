@@ -3,7 +3,6 @@ import {TASK_ADD} from "../actions/task";
 import {dataproject, NormalisationState} from "../components/Data/Data";
 
 const NormState = NormalisationState(dataproject)
-
 const initialState = {
     tasksById: NormState.tasksById
 }
@@ -11,8 +10,8 @@ const initialState = {
 const taskreducer = (state = initialState, action) => {
     switch (action.type) {
         case TASK_ADD: {
-            const taskId = Object.keys(state.tasks).length + 1
-            const newTasks = { ...state.tasks }
+            const taskId = Object.keys(state.tasksById).length + 1
+            const newTasks = { ...state.tasksById }
             const newTask = {
                 id: taskId,
                 name: action.name,
@@ -22,16 +21,16 @@ const taskreducer = (state = initialState, action) => {
             newTasks[taskId] = newTask
             return {
                 ...state,
-                tasks: newTasks
+                tasksById: newTasks
             }
         }
         case CHANGE_STATUS: {
             const taskId = action.id
-            const newTasks = { ...state.tasks }
+            const newTasks = { ...state.tasksById }
             newTasks[taskId].completed = !action.completed
             return {
                 ...state,
-                tasks: newTasks
+                tasksById: newTasks
             }
         }
         default:

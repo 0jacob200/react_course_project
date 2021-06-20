@@ -6,17 +6,17 @@ import NewProject from '../NewProject/NewProject'
 import Project from '../Project/Project'
 import StartPage from '../StartPage/StartPage'
 import TaskList from '../TaskList/TaskList'
-// import { dataproject, NormalisationState} from '../Data/Data'
 
 const mapStateToProps = (state) => ({
     projectsById: state.projectsById.projectsById
+
+    // projectsById: state.projectsById //это не работает, но правильно
 })
 
 class ProjectListComponent extends React.Component {
 
     render() {
-        //console.log(this.props.projectsById)
-        //console.log(Object.values(this.props.projectsById))
+
         return (
             <div>
                 <Switch>
