@@ -1,11 +1,12 @@
-import React from 'react'
-import { BrowserRouter, Switch, Route, Link, Redirect, withRouter, Router  } from 'react-router-dom';
+import React, {useEffect} from 'react'
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux'
 
 import NewProject from '../NewProject/NewProject'
 import Project from '../Project/Project'
 import StartPage from '../StartPage/StartPage'
 import TaskList from '../TaskList/TaskList'
+import {fetchDataLoaded} from "../../actions/project"
 
 const mapStateToProps = (state) => ({
     projectsById: state.projectsById.projectsById

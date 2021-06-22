@@ -1,12 +1,15 @@
 import logo from './logo.svg';
 import { render } from '@testing-library/react';
+
 import React from 'react'
 import { BrowserRouter, Switch, Route, Link, Redirect, withRouter  } from 'react-router-dom'
-import  { createStore} from "redux"
+import  { createStore, applyMiddleware} from "redux"
 import { Provider } from 'react-redux'
+import thunk from "redux-thunk";
 
 import ProjectList from './components/ProjectList/ProjectList'
 import {rootReducer} from "./reducers/rootreducer";
+
 
 
 /*
@@ -39,7 +42,7 @@ Ps ссылка: https://github.com/ValeryStatinov/GoTodoList/wiki/TodoList-API
 с помощью context API. НЕ КЛАСТЬ В КОНТЕКСТ МАССИВ ЗАДАЧ!
 */
 
-const store = createStore(rootReducer)
+const store = createStore(rootReducer, applyMiddleware(thunk))
 
 const App = () => {
   return(

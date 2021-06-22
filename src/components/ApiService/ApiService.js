@@ -37,14 +37,15 @@ class ApiService{
             let LoadTasksToProj= projects.map(proj => this.loadTasks(proj.id))
 
             const NormState = Promise.all(LoadTasksToProj).then(responses =>{
-                Object.entries(responses).map((res, id) => {
+                Object.entries(responses).map((res
+                                               , id) => {
                     return projects[id].tasks = res[1]
                 })
                 return NormalisationState(projects)
             })
             return NormState
         })
-            .catch(error => new Error('ApiService.loadProj(): ', err))
+            .catch(error => new Error('ApiService.loadProj(): ', error))
     }
 
     uploadNewProj = (name, url='/projects/') => {
